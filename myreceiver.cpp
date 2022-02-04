@@ -38,10 +38,15 @@ int main()
         return -1;
     }
 
+    int num=0;
     while(1)
     {
         bytes_read = recvfrom(sock, buf, 1024, 0, NULL, NULL);
-        std::cout<<std::string(buf,0, bytes_read);
+        
+        //преобразование в int
+        num = std::stoi(std::string(buf,0, bytes_read));
+
+        std::cout<<num<<'\n';
     }
     
     return 0;

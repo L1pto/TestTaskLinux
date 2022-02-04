@@ -15,7 +15,7 @@
 #include <string.h>
 #include <string>
 
-std::string msg1 = "Hello there!\n";
+std::string  msg1= "99\n";
 char msg2[] = "Bye bye!\n";
 
 int main()
