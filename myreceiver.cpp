@@ -1,19 +1,33 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-#include <iostream>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <errno.h>
-#include <string.h>
-#include <sys/types.h>
-#include <time.h>
 #include <string.h>
 #include <string>
+#include <iostream>
+
+
+bool checkCondition(int &num) {
+		if ((num > 99) && (num % 32 == 0))
+		{
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	void printRes(bool condition,int &num) {
+		if (condition)
+		{
+			std::cout << "Data received("<<num<<")\n" << std::endl;
+		}
+		else
+		{
+			std::cout << "Error\n" << std::endl;
+		}
+	}
+
 
 int main()
 {
@@ -23,31 +37,32 @@ int main()
     int bytes_read;
 
     sock = socket(AF_INET, SOCK_DGRAM, 0);
-    if(sock == -1)
+    if (sock == -1)
     {
-        std::cout<<("socket");
+        std::cout << ("Problem with socket");
         return -1;
     }
-    
+
     addr.sin_family = AF_INET;
+    //порт к которому подключается
     addr.sin_port = htons(3425);
     addr.sin_addr.s_addr = htonl(INADDR_ANY);
-    if(bind(sock, (struct sockaddr *)&addr, sizeof(addr)) < 0)
+    if (bind(sock, (struct sockaddr *)&addr, sizeof(addr)) < 0)
     {
-        std::cout<<("bind");
+        std::cout << ("Problem with bind");
         return -1;
     }
 
-    int num=0;
-    while(1)
+    int num = 0;
+    while (1)
     {
         bytes_read = recvfrom(sock, buf, 1024, 0, NULL, NULL);
-        
-        //преобразование в int
-        num = std::stoi(std::string(buf,0, bytes_read));
 
-        std::cout<<num<<'\n';
+        //преобразование в int
+        num = std::stoi(std::string(buf, 0, bytes_read));
+        //печатаем реузультат
+        printRes(checkCondition(num), num);
     }
-    
+
     return 0;
 }

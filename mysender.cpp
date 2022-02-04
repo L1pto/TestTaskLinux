@@ -15,31 +15,40 @@
 #include <string.h>
 #include <string>
 
-std::string  msg1= "99\n";
+std::string  msg1= "128\n";
 char msg2[] = "Bye bye!\n";
 
-int main()
-{
+class Sender{
+private:
+    std::string s_msg;
+
+public:
+    void send(std::string &message){
+
+    s_msg = message;
+
     int sock;
     struct sockaddr_in addr;
 
     sock = socket(AF_INET, SOCK_DGRAM, 0);
-    if(sock == -1 )
-    {
-        std::cout<<("socket");
-        return -1;
-    }
 
     addr.sin_family = AF_INET;
     addr.sin_port = htons(3425);
     addr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
 
-    sendto(sock, msg1.c_str(), sizeof(msg1), 0,(struct sockaddr *)&addr, sizeof(addr));
-    //send(sock, msg2, sizeof(msg2), 0);
+    sendto(sock, s_msg.c_str(), sizeof(msg1), 0,(struct sockaddr *)&addr, sizeof(addr));
 
     connect(sock, (struct sockaddr *)&addr, sizeof(addr));
   
     close(sock);
+    }
+};
+
+int main()
+{
+    Sender message;
+
+    message.send(msg1);
 
     return 0;
 }
