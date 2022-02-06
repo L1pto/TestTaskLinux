@@ -7,10 +7,10 @@ private:
     std::string p_array2;
 
 public:
-    //ret sum
-    int ReturnSum();
+    
+    int returnSum();
 
-    void ReceiveFromBuffer(char *buffer);
+    void receiveFromBuffer(char *buffer);
 
-    void ClearTheBuffer(char *buffer);
+    void clearTheBuffer(char *buffer);
 };

@@ -2,7 +2,7 @@
 #include <iostream>
 #include <algorithm>
 
-void Process1::EnterString()
+void Process1::enterString()
 {
     std::cout << "WARNING! Don't forget to run program №2 before writing the string!\n";
     std::cout << "Enter string: " << '\n';
@@ -58,8 +58,7 @@ void Process1::changeSymb()
     p_array = NewMyarray;
 }
 
-//send to buf
-void Process1::SendToBuffer(char *buffer)
+void Process1::sendToBuffer(char *buffer)
 {
     p_array.copy(buffer, p_array.length());
 }

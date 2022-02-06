@@ -62,8 +62,7 @@ int main()
     while (1)
     {
         bytes_read = recvfrom(sock, buf, 1024, 0, NULL, NULL);
-
-        //transform в int
+        
         num = std::stoi(std::string(buf, 0, bytes_read));
         //print res
         printRes(checkCondition(num), num);

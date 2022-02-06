@@ -1,6 +1,6 @@
 #include "Process2.h"
 
-int Process2::ReturnSum()
+int Process2::returnSum()
 {
     int sum = 0;
     for (int i = 0; i < p_array2.length(); i++)
@@ -14,13 +14,13 @@ int Process2::ReturnSum()
 }
 
 //receive from buf
-void Process2::ReceiveFromBuffer(char *buffer)
+void Process2::receiveFromBuffer(char *buffer)
 {
     p_array2.append(buffer);
 }
 
 //clear buf
-void Process2::ClearTheBuffer(char *buffer)
+void Process2::clearTheBuffer(char *buffer)
 {
     for (int i = 0; i < 128; i++)
         buffer[i] = 0;

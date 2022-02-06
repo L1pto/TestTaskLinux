@@ -10,12 +10,12 @@ int main()
 	std::mutex m1;
 	std::mutex m2;
 	// declare a buf
-	char Buffer[128]{};
+	char buffer[128]{};
 	Process1 str;
 	Process2 str2;
 	do{
 	//1 thread
-	std::thread First([&str, &Buffer, &m1, &m2]()
+	std::thread first([&str, &buffer, &m1, &m2]()
 					  {
 						  //lock resources
 						  m1.lock();
@@ -24,7 +24,7 @@ int main()
 						  while (true)
 						  {
 							  //enter the string
-							  str.EnterString();
+							  str.enterString();
 
 							  if (str.check())
 							  {
@@ -32,7 +32,7 @@ int main()
 								  str.changeSymb();
 
 								  //send the data to the buffer
-								  str.SendToBuffer(Buffer);
+								  str.sendToBuffer(buffer);
 								  break;
 							  }
 							  else
@@ -47,27 +47,27 @@ int main()
 					  });
 
 	int sum = 0;
-	std::thread Second([&str2, &Buffer, &m1, &m2, &sum]()
+	std::thread second([&str2, &buffer, &m1, &m2, &sum]()
 					   {
 						   //lock resources
 						   m1.lock();
 						   m2.lock();
 
 						   //receive data from the buf
-						   str2.ReceiveFromBuffer(Buffer);
+						   str2.receiveFromBuffer(buffer);
 
 						   //clear buf
-						   str2.ClearTheBuffer(Buffer);
+						   str2.clearTheBuffer(buffer);
 
 						   //return sum of string
-						   sum = str2.ReturnSum();
+						   sum = str2.returnSum();
 
 						   //unlock resources
 						   m1.unlock();
 						   m2.unlock();
 					   });
-	First.join();
-	Second.join();
+	first.join();
+	second.join();
 
 	Sender message;
 
