@@ -1,4 +1,4 @@
-#To test the program you need:
+# To test the program you need:
 > make Prog1
 
 > make Prog2
