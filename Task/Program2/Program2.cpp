@@ -9,7 +9,6 @@
 //check condition
 bool checkCondition(int &num)
 {
-    std::cout<<num;
     if ((num > 99) && (num % 32 == 0))
     {
         return true;
@@ -62,6 +61,7 @@ int main()
     int num = 0;
     while (1)
     {
+        std::cout<<"Wait for data from Program1\n";
         bytes_read = recvfrom(sock, buf, 1024, 0, NULL, NULL);
         
         num = std::stoi(std::string(buf, 0, bytes_read));

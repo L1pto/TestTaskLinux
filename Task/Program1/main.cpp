@@ -23,14 +23,12 @@ int main()
 	do
 	{
 		i = 0;
-		//1 thread
+
 		std::thread first([&m1, &m2, &str, &buffer, &cv, &i]()
 						  {
 							  //lock resources
 							  std::unique_lock<std::mutex> lk(m2);
-							  std::cout << "thread 1 " << std::this_thread::get_id() << '\n';
 							  
-							  cv.notify_all();
 							  while (true)
 							  {
 
@@ -51,44 +49,39 @@ int main()
 									  std::cout << "The check is not passed. Try again" << std::endl;
 								  }
 							  }
+							  //send message to conditional varible
 							  i = 1;
 							  lk.unlock();
+
+							  //Unblocks all threads currently waiting for 
 							  cv.notify_all();
-							  //m2.unlock();
-						  });
-		//b
+							  });
 		Sender message;
 		std::thread second([&m1, &m2, &str2, &buffer, &message, &sum, &cv, &i]()
 						   {
-							   //std::lock_guard<std::mutex> lg1(m1);
-							   std::cout << "thread 2 " << std::this_thread::get_id() << '\n';
 							   //lock resources
 							   std::unique_lock<std::mutex> lk(m2);
-							   //m2.lock();
+							   
+							   //Waiting for a message to continue the thread
 							   cv.wait(lk, [&i]{ return i == 1; });
-							   cv.notify_all();
+							
 							   //receive data from the buf
 							   str2.receiveFromBuffer(buffer, m1);
 
 							   std::cout << "Thread got data: " << str2.retString() << '\n';
 
-							   //return sum of string
-							   //str2.;
-							   //clear buf
-
-							   //std::cout <<sum <<" Sum"<< '\n';
 							   sum = str2.returnSum();
 
 							   str2.clearTheBuffer(buffer);
 
 							   std::string msg1 = std::to_string(sum);
-							   std::cout << sum << " Sum" << '\n';
 							   sum = 0;
+
+							   //send mesagge to Program2
 							   message.send(msg1);
-							   //std::cout << "Message sent\n";
+							   std::cout<<"Message sent\n\n"<<std::endl;
 							   //unlock resources
-							   //m1.unlock();
-							   m2.unlock();
+							   lk.unlock();
 						   });
 		second.join();
 		first.join();
