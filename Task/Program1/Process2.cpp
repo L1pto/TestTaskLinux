@@ -14,14 +14,22 @@ int Process2::returnSum()
 }
 
 //receive from buf
-void Process2::receiveFromBuffer(char *buffer)
+void Process2::receiveFromBuffer(char *buffer, std::mutex &m)
 {
+    m.lock();
     p_array2.append(buffer);
+    m.unlock();
 }
 
 //clear buf
 void Process2::clearTheBuffer(char *buffer)
 {
     for (int i = 0; i < 128; i++)
-        buffer[i] = 0;
+        {buffer[i] = 0;}
+    p_array2.clear();
+}
+
+std::string Process2::retString()
+{
+    return p_array2;
 }

@@ -1,5 +1,5 @@
 #include <string>
-
+#include <mutex>
 class Process1
 {
 
@@ -15,5 +15,5 @@ public:
     //change the characters depending on the conditions
     void changeSymb();
 
-    void sendToBuffer(char *buffer);
+    void sendToBuffer(char *buffer,std::mutex &m);
 };

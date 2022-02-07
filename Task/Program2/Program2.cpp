@@ -9,6 +9,7 @@
 //check condition
 bool checkCondition(int &num)
 {
+    std::cout<<num;
     if ((num > 99) && (num % 32 == 0))
     {
         return true;
