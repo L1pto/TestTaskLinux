@@ -15,5 +15,5 @@ public:
     //change the characters depending on the conditions
     void changeSymb();
 
-    void sendToBuffer(char *buffer,std::mutex &m);
+    void sendToBuffer(char *buffer, std::mutex &m);
 };

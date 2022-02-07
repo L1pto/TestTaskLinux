@@ -58,8 +58,8 @@ void Process1::changeSymb()
     p_array = NewMyarray;
 }
 
-void Process1::sendToBuffer(char *buffer,std::mutex &m)
-{   
+void Process1::sendToBuffer(char *buffer, std::mutex &m)
+{
     m.lock();
     p_array.copy(buffer, p_array.length());
     m.unlock();

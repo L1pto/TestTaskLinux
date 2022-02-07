@@ -28,7 +28,7 @@ int main()
 						  {
 							  //lock resources
 							  std::unique_lock<std::mutex> lk(m2);
-							  
+
 							  while (true)
 							  {
 
@@ -53,18 +53,19 @@ int main()
 							  i = 1;
 							  lk.unlock();
 
-							  //Unblocks all threads currently waiting for 
+							  //Unblocks all threads currently waiting for
 							  cv.notify_all();
-							  });
+						  });
 		Sender message;
 		std::thread second([&m1, &m2, &str2, &buffer, &message, &sum, &cv, &i]()
 						   {
 							   //lock resources
 							   std::unique_lock<std::mutex> lk(m2);
-							   
+
 							   //Waiting for a message to continue the thread
-							   cv.wait(lk, [&i]{ return i == 1; });
-							
+							   cv.wait(lk, [&i]
+									   { return i == 1; });
+
 							   //receive data from the buf
 							   str2.receiveFromBuffer(buffer, m1);
 
@@ -77,9 +78,10 @@ int main()
 							   std::string msg1 = std::to_string(sum);
 							   sum = 0;
 
-							   //send mesagge to Program2
+							   //send message to Program2
 							   message.send(msg1);
-							   std::cout<<"Message sent\n\n"<<std::endl;
+							   std::cout << "Message sent\n\n"
+										 << std::endl;
 							   //unlock resources
 							   lk.unlock();
 						   });

@@ -61,9 +61,9 @@ int main()
     int num = 0;
     while (1)
     {
-        std::cout<<"Wait for data from Program1\n";
+        std::cout << "Wait for data from Program1\n";
         bytes_read = recvfrom(sock, buf, 1024, 0, NULL, NULL);
-        
+
         num = std::stoi(std::string(buf, 0, bytes_read));
         //print res
         printRes(checkCondition(num), num);

@@ -25,7 +25,9 @@ void Process2::receiveFromBuffer(char *buffer, std::mutex &m)
 void Process2::clearTheBuffer(char *buffer)
 {
     for (int i = 0; i < 128; i++)
-        {buffer[i] = 0;}
+    {
+        buffer[i] = 0;
+    }
     p_array2.clear();
 }
 

@@ -8,7 +8,6 @@ private:
     std::string p_array2;
 
 public:
-    
     int returnSum();
 
     void receiveFromBuffer(char *buffer, std::mutex &m);
